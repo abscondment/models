@@ -26,6 +26,7 @@ tf_proto_library(
 )
 
 tf_proto_library(
+    visibility = ["//visibility:public"],
     name = "sentence_proto",
     srcs = ["sentence.proto"],
 )
