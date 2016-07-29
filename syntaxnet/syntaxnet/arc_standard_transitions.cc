@@ -53,10 +53,10 @@ class ArcStandardTransitionState : public ParserTransitionState {
     for (int i = 0; i < state.NumTokens(); ++i) {
       Token *token = sentence->mutable_token(i);
       token->set_label(state.LabelAsString(state.Label(i)));
+      token->set_head(state.Head(i));
       if (state.Head(i) != -1) {
-        token->set_head(state.Head(i));
+        // noop
       } else {
-        token->clear_head();
         if (rewrite_root_labels) {
           token->set_label(state.LabelAsString(state.RootLabel()));
         }

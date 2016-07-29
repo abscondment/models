@@ -135,7 +135,12 @@ class CoNLLSyntaxFormat : public DocumentFormat {
       token->set_word(word);
       token->set_start(start);
       token->set_end(end);
-      if (head > 0) token->set_head(head - 1);
+      if (head > 0) {
+        token->set_head(head - 1);
+      } else {
+        // work around proto2/proto3 default differences
+        token->set_head(-1);
+      }
       if (!tag.empty()) token->set_tag(tag);
       if (!cpostag.empty()) token->set_category(cpostag);
       if (!label.empty()) token->set_label(label);
@@ -205,6 +210,8 @@ class TokenizedTextFormat : public DocumentFormat {
       if (!text.empty()) text.append(" ");
       text.append(word);
       Token *token = sentence->add_token();
+      // work around proto2/proto3 default differences
+      token->set_head(-1);
       token->set_word(word);
       token->set_start(start);
       token->set_end(end);
